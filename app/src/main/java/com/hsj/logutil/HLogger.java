@@ -21,9 +21,9 @@ public class HLogger {
     private static final String BOTTOM_BORDER = BOTTOM_LEFT_CORNER + DOUBLE_DIVIDER + DOUBLE_DIVIDER;
     private static final String MIDDLE_BORDER = MIDDLE_CORNER + SINGLE_DIVIDER + SINGLE_DIVIDER;
 
-    static String className;
-    static String methodName;
-    static int lineNumber;
+    private static String className;
+    private static String methodName;
+    private static int lineNumber;
 
     private static String createLog(String log) {
         StringBuffer buffer = new StringBuffer();
@@ -77,17 +77,23 @@ public class HLogger {
         if (!DEBUG) return;
         if (!TextUtils.isEmpty(message)) {
             getMethodNames(new Throwable().getStackTrace());
+            //先打印横线
             Log.i(className, TOP_BORDER);
+            //再打印类名和行号及调用方法名
             Log.i(className, HORIZONTAL_LINE + " " + createLog());
+            //再打印中间横线
             Log.i(className, MIDDLE_BORDER + " ");
             byte[] bytes = message.getBytes();
             int length = bytes.length;
+            //判断文本内容长度
             if (length <= CHUNK_SIZE) {
+                //短文本，再判断文本内容是否有换行符
                 String[] lines = message.split(System.getProperty("line.separator"));
                 for (String line : lines) {
                     Log.i(className, HORIZONTAL_LINE + " " + line);
                 }
             } else {
+                //长文本循环打印，每一行中判断是否有换行符
                 for (int i = 0; i < length; i += CHUNK_SIZE) {
                     int count = Math.min(length - i, CHUNK_SIZE);
                     String[] lines = new String(bytes, i, count).split(System.getProperty("line.separator"));
