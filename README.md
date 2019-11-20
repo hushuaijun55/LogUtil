@@ -193,6 +193,7 @@ public class HLogger {
     }
 ```
 调用非常简单，HLogger类支持的方法如下，可以传入自己的TAG，也可以不传入，代码自动获取打印日志的类的类名作为TAG。
+
 ![HLogger支持的方法](https://img-blog.csdnimg.cn/20191120201818407.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hzaHVhaWp1bjU1,size_16,color_FFFFFF,t_70)
 
 3. 网络请求时，将请求信息及返回信息打印出来。会使用到长文本信息打印。以下是网络请求拦截器中，我打印的请求信息。如效果图中所示。
